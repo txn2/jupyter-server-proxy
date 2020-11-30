@@ -15,10 +15,12 @@ try:
 except ImportError:
     from .utils import Callable
 
+
 def _make_serverproxy_handler(name, command, environment, timeout, absolute_url, port, mappath):
     """
     Create a SuperviseAndProxyHandler subclass with given parameters
     """
+
     # FIXME: Set 'name' properly
     class _Proxy(SuperviseAndProxyHandler):
         def __init__(self, *args, **kwargs):
@@ -76,6 +78,7 @@ def get_entrypoint_server_processes():
         )
     return sps
 
+
 def make_handlers(base_url, server_processes):
     """
     Get tornado handlers for registered server_processes
@@ -99,9 +102,12 @@ def make_handlers(base_url, server_processes):
         ))
     return handlers
 
-LauncherEntry = namedtuple('LauncherEntry', ['enabled', 'icon_path', 'title'])
+
+LauncherEntry = namedtuple('LauncherEntry', ['enabled', 'icon_path', 'title', 'category'])
 ServerProcess = namedtuple('ServerProcess', [
-    'name', 'command', 'environment', 'timeout', 'absolute_url', 'port', 'mappath', 'launcher_entry', 'new_browser_tab'])
+    'name', 'command', 'environment', 'timeout', 'absolute_url', 'port', 'mappath', 'launcher_entry',
+    'new_browser_tab'])
+
 
 def make_server_process(name, server_process_config):
     le = server_process_config.get('launcher_entry', {})
@@ -116,10 +122,12 @@ def make_server_process(name, server_process_config):
         launcher_entry=LauncherEntry(
             enabled=le.get('enabled', True),
             icon_path=le.get('icon_path'),
+            category=le.get('category', 'Notebook'),
             title=le.get('title', name)
         ),
         new_browser_tab=server_process_config.get('new_browser_tab', True)
     )
+
 
 class ServerProxy(Configurable):
     servers = Dict(
