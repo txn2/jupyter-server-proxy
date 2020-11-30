@@ -84,6 +84,9 @@ async function activate(app: JupyterFrontEnd, launcher: ILauncher, restorer: ILa
     const title = server_process.launcher_entry.title;
     const newBrowserTab = server_process.new_browser_tab;
     const id = namespace + ':' + server_process.name;
+    const set_category = server_process.launcher_entry.category
+    const category = set_category ? set_category : "Notebook"
+
     const launcher_item : ILauncher.IItemOptions = {
       command: command,
       args: {
@@ -92,7 +95,7 @@ async function activate(app: JupyterFrontEnd, launcher: ILauncher, restorer: ILa
         newBrowserTab: newBrowserTab,
         id: id
       },
-      category: 'Notebook'
+      category: category
     };
 
     if (server_process.launcher_entry.icon_url) {

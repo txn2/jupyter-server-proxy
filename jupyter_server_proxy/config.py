@@ -175,6 +175,9 @@ class ServerProxy(Configurable):
             title
               Title to be used for the launcher entry. Defaults to the name of the server if missing.
 
+            category
+              Notebook, Console or Other
+
           new_browser_tab
             Set to True (default) to make the proxied server interface opened as a new browser tab. Set to False
             to have it open a new JupyterLab tab. This has no effect in classic notebook.
